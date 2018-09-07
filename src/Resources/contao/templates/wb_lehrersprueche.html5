@@ -1,0 +1,55 @@
+<div class="<?= $this->class ?>">
+
+	<h2>Neuen Spruch einreichen:</h2><br />
+	
+	<?php if($this->success == true) : ?>
+		<div class="ce_text hint">
+			Der Spruch wurde erfolgreich gespeichert.
+		</div>
+		<br />
+	<?php endif; ?>
+	<form action="" method="POST">
+		<input type="hidden" name="FORM_SUBMIT" value="lehrerspruch" />
+		<input type="hidden" name="REQUEST_TOKEN" value="{{request_token}}" />
+		
+		<label for="teacher">Lehrer: </label>
+		<select name="teacher">
+			<?php foreach ($this->teacherList as $id => $teacher) : ?>
+				<option value="<?= $id ?>"><?= $teacher ?></option>
+			<?php endforeach; ?>
+			<option value="0">Sonstiger Lehrer</option>
+		</select>
+		
+		<br />
+		
+		<label for="subject">Fach: </label>
+		<select name="subject">
+			<?php foreach ($this->subjectList as $id => $subject) : ?>
+				<option value="<?= $id ?>"><?= $subject ?></option>
+			<?php endforeach; ?>
+			<option value="0">Sonstiges Fach / andere Situtation</option>
+		</select>
+		
+		<br />
+		
+		<label for="spruch">Spruch:</label>
+		<textarea name="spruch" rows="10" cols="40"></textarea>
+		<br/> 
+		<button type="submit">Senden</button>
+	</form>
+	
+	<hr>
+
+	<h2>Eingereichte Sprüche:</h2>
+
+	<?php if(!$this->data) : ?>Keine Sprüche vorhanden.<?php else : ?>
+	
+	<?php foreach ($this->data as $spruch) : ?>
+		<p><b><?= $spruch['student_str'] ?> über <?= $spruch['teacher_str'] ?> in <?= $spruch['subject_str'] ?>:</b></p>
+		<blockquote><?= $spruch['spruch'] ?></blockquote>
+	
+	<?php endforeach; ?>
+	
+	<?php endif; ?>
+
+</div>
